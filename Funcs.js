@@ -1,3 +1,4 @@
+var arrPoint = [ 16,0,0];
 function draw_grid( rctx, rminor, rmajor, rstroke, rfill  ) 
 {
     rctx.save( );
@@ -44,8 +45,36 @@ function StampCords(intNum1, intNum2,intNum3, ctx,x,y)
 	ctx.restore();
 }
 
-function BizzareCaveExplore( ctx)
+function BizzareCaveExplore( ctx, source, target, constant )
 {
+
+	var currPoint = arrPoint;
+	
+	source --; 
+	target ++; 
+	
+	if(CheeckValidCord(source, target,constant) )
+	{
+		console.log(source, target, constant);
+		//draw cave
+	}
+	if( source  == 0)
+	{
+		BizzareCaveExplore( ctx, target, source, constant );
+	}
+	
+	BizzareCaveExplore( ctx, source, constant, target );
+	//BizzareCaveExplore( ctx, source, target, constant );
+	//BizzareCaveExplore( ctx, target, source, constant ); 
+	//BizzareCaveExplore( ctx, target, constant, source);
+	//BizzareCaveExplore( ctx, constant, target, source);	
+	//BizzareCaveExplore( ctx, constant, source, target);	
+	
+	
+	
+
+	
+	
  // c is constant
 // if a is souce let down x < a 
 //let up  y > b 
@@ -69,7 +98,9 @@ function CheeckValidCord(intNum1, intNum2,intNum3,)
 	var a = intNum1; 
 	var b = intNum2; 
 	var c = intNum3;
-	
+	var aMax = 16; 
+	var bmax = 9 ; 
+	var cmax = 7;
 	if( a > 16 || a < 0)
 	{
 		return false; 
@@ -83,11 +114,21 @@ function CheeckValidCord(intNum1, intNum2,intNum3,)
 	{
 		return false; 
 	}
-	
-	if( a + b + c == 16)
+	if( a == aMax && a + b + c == 16)
 	{
 		return true;
 	}
+	if( b == bmax && a + b + c == 16)
+	{
+		return true;
+	}
+		if( c == cmax && a + b + c == 16)
+	{
+		return true;
+	}
+	
+	
+
 	return false; 
 	
 }
