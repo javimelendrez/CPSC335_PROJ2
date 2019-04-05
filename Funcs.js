@@ -40,7 +40,57 @@ function StampCords(intNum1, intNum2,intNum3, ctx,x,y)
     ctx.fillStyle = 'lightgreen';
     ctx.font = "10px Arial";
 	ctx.fillText( stampThis, x, y );
-	ctx.fillRect(x,y,7,7);
+	ctx.fillRect(x,y,5,5,);
 	ctx.restore();
 }
+
+function BizzareCaveExplore( ctx)
+{
+ // c is constant
+// if a is souce let down x < a 
+//let up  y > b 
+
+// conversion  X + Y = A + B. The sum of the coordinates never changes 
+
+// source can go to zero 
+
+// c can not be larger then 7 
+
+// max cord limits (16, 9, 7) example  (6,10,0) violates this limit 
+
+
+
+
+
+ 
+}
+function CheeckValidCord(intNum1, intNum2,intNum3,) 
+{
+	var a = intNum1; 
+	var b = intNum2; 
+	var c = intNum3;
+	
+	if( a > 16 || a < 0)
+	{
+		return false; 
+	}
+		if( b >  9 || b < 0)
+	{
+		return false; 
+	}
+	
+		if( c >  7 || c < 0)
+	{
+		return false; 
+	}
+	
+	if( a + b + c == 16)
+	{
+		return true;
+	}
+	return false; 
+	
+}
+
+
 
