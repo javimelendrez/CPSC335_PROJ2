@@ -1,6 +1,8 @@
 var arrPoint = [ 16,0,0];
 //var listAllCaes= [ {"a": 0,"b": 0, "c" 0 } ];
 var allCaves = [  { "a":0, "b":0 , "c":0} ] ;
+var vistedCaves = [  { "a":0, "b":0 , "c":0} ] ;
+var unVistedCaves = [  { "a":0, "b":0 , "c":0} ] ;
 function draw_grid( rctx, rminor, rmajor, rstroke, rfill  ) 
 {
     rctx.save( );
@@ -172,6 +174,101 @@ function CheeckValidCord(intNum1, intNum2,intNum3,)
 	
 
 	return false; 
+	
+}
+
+function NextCords (ctx,intNum1, intNum2, intNum3,x,y)
+{ 
+	var maxA = 16; 
+	var maxB = 9; 
+	var cmax = 7;
+	var a = intNum1;
+	var b = intNum2; 
+	var c = intNum3;
+	for ( a; a ==0 ; a--)
+	{
+		for(b; b == maxB ; b++)
+		{
+			if( a + b + c == 16)
+			{
+				if( a == maxA|| b ==  maxB ||  c == cmax)
+				{
+					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
+				}
+			}
+		}
+	}
+	for ( a; a ==0 ; a--)
+	{
+		for(c; c == cmax; c++)
+		{
+			if( a + b + c == 16)
+			{
+				if( a == maxA|| b ==  maxB ||  c == cmax)
+				{
+					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
+				}
+			}
+		}
+	}
+	
+	for ( b; b == 0; b--)
+	{
+		for(a; a == maxA; a++)
+		{
+			if ( a+ b + c == 16)
+			{
+				if( a == maxA|| b ==  maxB ||  c == cmax)
+				{
+					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
+				}
+			}
+		}
+	}
+	
+	for ( b; b == 0; b--)
+	{
+		for(c; c == cmax ; c++)
+		{
+			if(a + b + c == 16)
+			{
+			if( a == maxA|| b ==  maxB ||  c == cmax)
+				{
+					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
+				}	
+			} 
+		}
+	}
+	
+	
+for ( c; c == 0; c--)
+	{
+		for(b; b == maxB; b++)
+		{
+		
+			if(a + b + c == 16)
+			{
+				if( a == maxA|| b ==  maxB ||  c == cmax)
+				{
+					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
+				}
+			}
+		}
+	}
+	
+for ( c; c == 0; c--)
+	{
+		for(a; a == maxA ; a++)
+		{
+			if(a + b + c == 16)
+			{
+				if( a == maxA|| b ==  maxB ||  c == cmax)
+				{
+					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
+				}
+			}
+		}
+	}
 	
 }
 
