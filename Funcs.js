@@ -1,4 +1,6 @@
 var arrPoint = [ 16,0,0];
+//var listAllCaes= [ {"a": 0,"b": 0, "c" 0 } ];
+var allCaves = [  { "a":0, "b":0 , "c":0} ] ;
 function draw_grid( rctx, rminor, rmajor, rstroke, rfill  ) 
 {
     rctx.save( );
@@ -36,7 +38,7 @@ function DrawLine(ctx, x1,y1,x2,y2)
 }
 function StampCords(intNum1, intNum2,intNum3, ctx,x,y)
 {	
-	var stampThis = '' +  intNum1 + ',' + intNum2 + ',' + intNum2;
+	var stampThis = '' +  intNum1 + ',' + intNum2 + ',' + intNum3;
 	ctx.save( );
     ctx.fillStyle = 'lightgreen';
     ctx.font = "10px Arial";
@@ -71,10 +73,6 @@ function BizzareCaveExplore( ctx, source, target, constant )
 	//BizzareCaveExplore( ctx, constant, source, target);	
 	
 	
-	
-
-	
-	
  // c is constant
 // if a is souce let down x < a 
 //let up  y > b 
@@ -88,11 +86,55 @@ function BizzareCaveExplore( ctx, source, target, constant )
 // max cord limits (16, 9, 7) example  (6,10,0) violates this limit 
 
 
-
-
-
  
 }
+function generateCaves(ctx)
+{
+	var i = 0; 
+	var y = 0;
+	var z = 0 
+	var i = 0; 
+	var yy = 0; 
+	var xx = 0;
+	for( i =0 ; i<=16; i++)
+	{
+		for( y = 0; y <= 9; y ++)
+		{
+			for (  z = 0;  z <= 7 ; z++)
+			{
+				
+				if( i + y + z === 16)
+				{
+					//add to list 
+						//calcCord(ctx,i,y,z,xx,yy);
+					allCaves.push({"a": i, "b": y, "c":z});
+					//StampCords(i,y,z,ctx,xx,yy);
+					//add cord
+					// calc cord
+					//print point 
+					// stamp point 
+					
+					calcCord(ctx,i,y,z,xx,yy);
+				
+				}
+			}
+			
+		}
+
+}
+}
+
+function calcCord( ctx, posA,  posB,  posC,  x,  y)
+{
+	var posb1 = posB * 15; 
+	var	posc1 = posC * 15;
+	var posa1 = posA * 25;
+
+	 y =  posa1 +20; 
+	x = posb1 - posc1 + 200;
+	StampCords(posA,posB,posC,ctx,y,x);
+}
+
 function CheeckValidCord(intNum1, intNum2,intNum3,) 
 {
 	var a = intNum1; 

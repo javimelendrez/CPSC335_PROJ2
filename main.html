@@ -19,20 +19,7 @@
 	var canvas = document.getElementById( "grid" );
   var context = canvas.getContext( "2d" );
 	draw_grid( context, 10, 50, 'white', 'yellow' );
-	DrawLine(context,25,25,50, 50);
-	StampCords(16,0,0,context,25,25);
-	
-	StampCords(16,1,0,context,50,50);
-	
-	DrawLine(context,50,50, 65, 30);
-	StampCords(16,2,0,context,65, 30);
-	
-	DrawLine(context,50,50, 65, 40);
-	StampCords(16,3,0,context, 65, 40);
-	
-	DrawLine(context,50,50 ,65, 70);
-	StampCords(16,4,0,context,65, 70);
-	BizzareCaveExplore( context, 16, 0, 0 );
+	generateCaves(context);
 	
 </script>
 </html>
