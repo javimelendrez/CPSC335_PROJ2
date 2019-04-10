@@ -3,6 +3,19 @@ var arrPoint = [ 16,0,0];
 var allCaves = [  { "a":0, "b":0 , "c":0} ] ;
 var vistedCaves = [  { "a":0, "b":0 , "c":0} ] ;
 var unVistedCaves = [  { "a":0, "b":0 , "c":0} ] ;
+
+/*function cheeckVistedCaves(a,b,c)
+{
+	var curcave = vistedCaves;
+	for( var i = 0; i < vistedCaves.length; i++)
+	{
+		if( vistedCaves[i]["a"] === a&& vistedCaves[i]["b"] === b&& vistedCaves[i]["c"] === c)
+		{
+			return true;
+	}
+	return false;
+}
+*/
 function draw_grid( rctx, rminor, rmajor, rstroke, rfill  ) 
 {
     rctx.save( );
@@ -49,47 +62,7 @@ function StampCords(intNum1, intNum2,intNum3, ctx,x,y)
 	ctx.restore();
 }
 
-function BizzareCaveExplore( ctx, source, target, constant )
-{
 
-	var currPoint = arrPoint;
-	
-	source --; 
-	target ++; 
-	
-	if(CheeckValidCord(source, target,constant) )
-	{
-		console.log(source, target, constant);
-		//draw cave
-	}
-	if( source  == 0)
-	{
-		BizzareCaveExplore( ctx, target, source, constant );
-	}
-	
-	BizzareCaveExplore( ctx, source, constant, target );
-	//BizzareCaveExplore( ctx, source, target, constant );
-	//BizzareCaveExplore( ctx, target, source, constant ); 
-	//BizzareCaveExplore( ctx, target, constant, source);
-	//BizzareCaveExplore( ctx, constant, target, source);	
-	//BizzareCaveExplore( ctx, constant, source, target);	
-	
-	
- // c is constant
-// if a is souce let down x < a 
-//let up  y > b 
-
-// conversion  X + Y = A + B. The sum of the coordinates never changes 
-
-// source can go to zero 
-
-// c can not be larger then 7 
-
-// max cord limits (16, 9, 7) example  (6,10,0) violates this limit 
-
-
- 
-}
 function generateCaves(ctx)
 {
 	var i = 0; 
@@ -125,6 +98,187 @@ function generateCaves(ctx)
 
 }
 }
+function nextcord(ctx, intNum1, intNum2, intNum3)
+{
+	var x,y; 
+	var oX, oY;
+	
+	var a = intNum1; 
+	var b = intNum2; 
+	var c = intNum3;
+	var amax = 16; 
+	var bmax  = 9; 
+	var cmax = 7; 
+	
+	calcCord(ctx, a,b,c,x,y); 
+	oX = calcX(a,b,c);
+	oY = calcY(a,b,c); 
+	vistedCaves.push({"a": a, "b": b, "c":c});	
+	for(var ai = a; ai >= 1; ai--)
+	{
+		a--;
+		b = intNum2; 
+		for(var bi = b; bi <= bmax; bi++)
+		{
+			b++;
+			if(a + b + c == 16)
+			{
+				if(a == amax|| b == bmax|| c == cmax)
+				{
+					
+					if(vistedCaves.indexOf(a,b,c) === -1)
+					{
+					calcCord(ctx, a,b,c,x,y); 
+					x = calcX(a,b,c); 
+					y = calcY(a,b,c); 
+					DrawLine(ctx,oY,oX,y,x);
+					//allCaves.push({"a": i, "b": y, "c":z});
+					unVistedCaves.push({"a": a, "b": b, "c":c});
+					}
+				}
+			}
+		}
+	}
+		
+		a = intNum1; 
+		b = intNum2; 
+		c = intNum3;
+		for(var ai = a; ai >= 1; ai--)
+	{
+		a--;
+		c = intNum3; 
+		for(var ci = c; ci <= cmax; ci++)
+		{
+			c++;
+			if(a + b + c == 16)
+			{
+				if(a == amax|| b == bmax|| c == cmax)
+				{
+					if(vistedCaves.indexOf(a,b,c) === -1)
+					{
+					calcCord(ctx, a,b,c,x,y); 
+					x = calcX(a,b,c); 
+					y = calcY(a,b,c); 
+					DrawLine(ctx,oY,oX,y,x); 
+					unVistedCaves.push({"a": a, "b": b, "c":c});
+					}
+				}
+			}
+		}
+	}
+		
+		a = intNum1; 
+		b = intNum2; 
+		c = intNum3;
+		for (var bi = b ; bi >=1; bi--)
+		{
+			b--; 
+			a = intNum1; 
+			for( var ai = a; ai <= amax; ai++)
+			{
+				a++; 
+				if(a + b + c == 16)
+			{
+				if(a == amax|| b == bmax|| c == cmax)
+				{
+					if(vistedCaves.indexOf(a,b,c) === -1){
+					calcCord(ctx, a,b,c,x,y); 
+					x = calcX(a,b,c); 
+					y = calcY(a,b,c); 
+					DrawLine(ctx,oY,oX,y,x) ;
+					}
+				}
+			}
+				
+			}
+		}
+		a = intNum1; 
+		b = intNum2; 
+		c = intNum3;
+		for (var bi = b ; bi >=1; bi--)
+		{
+			b--; 
+			c = intNum3; 
+			for( var ci = c; ci <= cmax; ci++)
+			{
+				c++; 
+				if(a + b + c == 16)
+			{
+				if(a == amax|| b == bmax|| c == cmax)
+				{
+						if(vistedCaves.indexOf(a,b,c) === -1){
+					calcCord(ctx, a,b,c,x,y); 
+					x = calcX(a,b,c); 
+					y = calcY(a,b,c); 
+					DrawLine(ctx,oY,oX,y,x); 
+					//unVistedCaves.push({"a": a, "b": b, "c":c});
+					}
+				}
+			}
+				
+			}
+		}
+		a = intNum1; 
+		b = intNum2; 
+		c = intNum3;
+		for (var ci = c ; ci >=1; ci--)
+		{
+			c--; 
+			a = intNum1; 
+			for( var ai = a; ai <= amax; ai++)
+			{
+				a++; 
+				if(a + b + c == 16)
+			{
+				
+				if(a == amax|| b == bmax|| c == cmax)
+				{
+					if(vistedCaves.indexOf(a,b,c) === -1){
+					calcCord(ctx, a,b,c,x,y); 
+					x = calcX(a,b,c); 
+					y = calcY(a,b,c); 
+					DrawLine(ctx,oY,oX,y,x); 
+				//	unVistedCaves.push({"a": a, "b": b, "c":c});
+					}
+				}
+				
+			}
+				
+			}
+		}
+			a = intNum1; 
+		b = intNum2; 
+		c = intNum3;
+		for (var ci = c ; ci >=1; ci--)
+		{
+			c--; 
+			b = intNum2; 
+			for( var bi = b; bi <= bmax; bi++)
+			{
+				b++; 
+				if(a + b + c == 16)
+			{
+				
+				if(a == amax|| b == bmax|| c == cmax)
+				{
+					if(vistedCaves.indexOf(a,b,c) === -1){
+					calcCord(ctx, a,b,c,x,y); 
+					x = calcX(a,b,c); 
+					y = calcY(a,b,c); 
+					DrawLine(ctx,oY,oX,y,x); 
+					//unVistedCaves.push({"a": a, "b": b, "c":c});
+					}					
+				}
+			}
+				
+			}
+		}
+	
+		
+		
+	
+	
+} 
 
 function calcCord( ctx, posA,  posB,  posC,  x,  y)
 {
@@ -136,141 +290,53 @@ function calcCord( ctx, posA,  posB,  posC,  x,  y)
 	x = posb1 - posc1 + 200;
 	StampCords(posA,posB,posC,ctx,y,x);
 }
-
-function CheeckValidCord(intNum1, intNum2,intNum3,) 
+function calcY(posA,posB,posC)
 {
-	var a = intNum1; 
-	var b = intNum2; 
-	var c = intNum3;
-	var aMax = 16; 
-	var bmax = 9 ; 
-	var cmax = 7;
-	if( a > 16 || a < 0)
-	{
-		return false; 
-	}
-		if( b >  9 || b < 0)
-	{
-		return false; 
-	}
-	
-		if( c >  7 || c < 0)
-	{
-		return false; 
-	}
-	if( a == aMax && a + b + c == 16)
-	{
-		return true;
-	}
-	if( b == bmax && a + b + c == 16)
-	{
-		return true;
-	}
-		if( c == cmax && a + b + c == 16)
-	{
-		return true;
-	}
-	
-	
-
-	return false; 
-	
+	var posa1 = posA * 25;
+	 var y =  posa1 + 20;
+	return y;
 }
+function calcX(posA,posB,posC)
+{
+	var posb1 = posB * 15; 
+	var	posc1 = posC * 15;
+	var x = posb1 - posc1 + 200;
+	return x;
+}
+function BizzareCaveExplore(ctx, posA,  posB,  posC)
 
-function NextCords (ctx,intNum1, intNum2, intNum3,x,y)
-{ 
-	var maxA = 16; 
-	var maxB = 9; 
-	var cmax = 7;
-	var a = intNum1;
-	var b = intNum2; 
-	var c = intNum3;
-	for ( a; a ==0 ; a--)
-	{
-		for(b; b == maxB ; b++)
-		{
-			if( a + b + c == 16)
-			{
-				if( a == maxA|| b ==  maxB ||  c == cmax)
-				{
-					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
-				}
-			}
-		}
-	}
-	for ( a; a ==0 ; a--)
-	{
-		for(c; c == cmax; c++)
-		{
-			if( a + b + c == 16)
-			{
-				if( a == maxA|| b ==  maxB ||  c == cmax)
-				{
-					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
-				}
-			}
-		}
-	}
+{
+	var x, y; 
+	var currentCave = {"a":posA, "b":posB,"c": posC}
+		//unVistedCaves.push({"a": a, "b": b, "c":c});	
+	//vistedCaves.push({"a": posA, "b":posB, "c":posC});
+	nextcord(ctx, posA,  posB,  posC);
 	
-	for ( b; b == 0; b--)
+	currentCave =  unVistedCaves.pop();
+	if(vistedCaves.indexOf(currentCave["a"],currentCave["b"],currentCave["c"]) === -1)
 	{
-		for(a; a == maxA; a++)
-		{
-			if ( a+ b + c == 16)
-			{
-				if( a == maxA|| b ==  maxB ||  c == cmax)
-				{
-					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
-				}
-			}
-		}
-	}
-	
-	for ( b; b == 0; b--)
-	{
-		for(c; c == cmax ; c++)
-		{
-			if(a + b + c == 16)
-			{
-			if( a == maxA|| b ==  maxB ||  c == cmax)
-				{
-					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
-				}	
-			} 
-		}
-	}
-	
-	
-for ( c; c == 0; c--)
-	{
-		for(b; b == maxB; b++)
-		{
 		
-			if(a + b + c == 16)
-			{
-				if( a == maxA|| b ==  maxB ||  c == cmax)
-				{
-					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
-				}
-			}
-		}
+		BizzareCaveExplore(ctx, currentCave["a"],currentCave["b"],currentCave["c"]);
 	}
-	
-for ( c; c == 0; c--)
+
+/*
+while((!Array.isArray(unVistedCaves) || !unVistedCaves.length))
 	{
-		for(a; a == maxA ; a++)
+		currentCave =  unVistedCaves.pop();
+		if(vistedCaves.indexOf(currentCave["a"],currentCave["b"],currentCave["c"]) === -1)
 		{
-			if(a + b + c == 16)
-			{
-				if( a == maxA|| b ==  maxB ||  c == cmax)
-				{
-					calcCord(ctx,intNum1, intNum2, intNum3,x,y);
-				}
-			}
+			vistedCaves.push(currentCave); 
+			nextcord(ctx, currentCave["a"],currentCave["b"],currentCave["c"]);
 		}
 	}
+	*/
+	
+	
+	
+//BizzareCaveExplore(ctx, currentCave["a"],currentCave["b"],currentCave["c"]);
+	
+	
 	
 }
-
 
 
